@@ -27,6 +27,10 @@
       { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
+    for (const inventor of inventors) {
+      inventor.age = inventor.passed - inventor.year;
+    }
+    
 
     const people = [
       'Bernhard, Sandra', 'Bethea, Erin', 'Becker, Carl', 'Bentsen, Lloyd', 'Beckett, Samuel', 'Blake, William', 'Berger, Ric', 'Beddoes, Mick', 'Beethoven, Ludwig',
@@ -38,21 +42,38 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const inventorBirth = inventors.filter((inventor) => inventor.year >= 1500 && inventor.year < 1600);
+    console.log(inventorBirth);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
-
+    const inventorNames = inventors.map((inventor) => `${inventor.first} ${inventor.last}`);
+    console.table(inventorNames);
+    
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const inventorsSorted = inventors.sort((a, b) => a.year - b.year);
+    console.table(inventorsSorted);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const totalAges = inventors.reduce((total, current) => total + (current.passed - current.year), 0);
+    console.table(totalAges);
 
     // 5. Sort the inventors by years lived
-
+    const oldestInventor = inventors.sort((a,b) => (a.passed - a.year) - (b.passed - b.year));
+    
+    console.table(oldestInventor);
+    
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    const category = document.querySelector(".mw-category");
+    const links = Array.from(category.querySelectorAll("a"));
+    console.log(links);
 
+    const de = links.map((link) => link.textContent);
+    const deFilter = de.filter((link) => contains(link, "de"));
+    console.log(deFilter);
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
